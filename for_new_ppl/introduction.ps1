@@ -33,7 +33,7 @@ git remote add origin https://github.com/JohnBummit/Twitter_Song_DB.git
 git fetch origin
 
 #install packages
-pip install Flask requests pandas numpy
+pip install Flask requests pandas numpy duckdb
 
 
 Write-Host "Setup completed successfully!" -ForegroundColor Green
