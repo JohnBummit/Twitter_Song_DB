@@ -4,6 +4,11 @@ import json
 from datetime import datetime, timedelta
 import pandas as pd
 from datetime import datetime
+
+#import list for non real niggas 
+"""
+from bad artists.py import Bad_Artists
+"""
 # Connect to or create a DuckDB database
 conn = duckdb.connect('music.db')
 
