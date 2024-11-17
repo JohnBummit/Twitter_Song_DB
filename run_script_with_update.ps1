@@ -1,25 +1,17 @@
-# Path to the script you want to run
-$scriptPath = "./for_new_ppl/introduction.ps1"
+# Define the correct path to the install_python.ps1 script
+$scriptPath = "./for_new_ppl/install_python.ps1"
 
-# Get the current execution policy
-$originalPolicy = Get-ExecutionPolicy
-
-# Check if the execution policy allows running scripts
-if ($originalPolicy -eq "Restricted") {
-    Write-Output "Current execution policy is Restricted. Changing to RemoteSigned temporarily..."
-    Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned -Force
+# Check if the script file exists
+if (Test-Path $scriptPath) {
+    Write-Output "Found $scriptPath. Running the script..."
+    try {
+        # Run the script
+        & $scriptPath
+    } catch {
+        # Handle any errors during script execution
+        Write-Error "An error occurred while running the script: $_"
+    }
 } else {
-    Write-Output "Execution policy is already set to $originalPolicy."
-}
-
-# Run the script
-try {
-    Write-Output "Running the script: $scriptPath"
-    & $scriptPath
-} catch {
-    Write-Output "An error occurred while running the script: $_"
-} finally {
-    # Restore the original execution policy
-    Write-Output "Restoring the original execution policy: $originalPolicy"
-    Set-ExecutionPolicy -Scope Process -ExecutionPolicy $originalPolicy -Force
+    # Error if the file is not found
+    Write-Error "Error: $scriptPath not found! Please verify the file location."
 }
