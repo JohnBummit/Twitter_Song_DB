@@ -1,6 +1,10 @@
 # Twitter_Song_DB
 DB project for twitter
-Will write this tm
+
+for part 1, right click polwershellk ad administrator and  run git clone https://github.com/JohnBummit/Twitter_Song_DB.git
+
+path 2
+cd .\Twitter_Song_DB
 for new people, open powershell as admin (right click) then type ./Twitter_Song_DB
 /for_new_ppl/introduction.ps1
 
