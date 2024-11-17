@@ -11,11 +11,11 @@ function Run-ScriptIfExists($scriptPath) {
             & $scriptPath
         } catch {
             # Handle errors during script execution
-            Write-Error "An error occurred while running $scriptPath: $($_.Exception.Message)"
+            Write-Error "An error occurred while running `${scriptPath}: $($_.Exception.Message)`"
         }
     } else {
         # Log an error if the script does not exist
-        Write-Error "Error: $scriptPath not found! Please verify the file location."
+        Write-Error "Error: `${scriptPath}` not found! Please verify the file location."
     }
 }
 
