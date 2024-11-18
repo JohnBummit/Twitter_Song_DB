@@ -1,26 +1,23 @@
-#Bypass exe
-
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
-
-
 # Define the URL for the Git installer
-$gitDownloadUrl = "https://github.com/git-for-windows/git/releases/latest/download/Git-2.41.0-64-bit.exe"
+$gitDownloadUrl = "https://github.com/git-for-windows/git/releases/download/v2.45.2.windows.1/Git-2.45.2-64-bit.exe"
 
 # Set the path to download the installer
 $installerPath = "$env:TEMP\GitInstaller.exe"
 
 # Download the Git installer
-Write-Host "Downloading Git installer..."
-Invoke-WebRequest -Uri $gitDownloadUrl -OutFile $installerPath -UseBasicParsing
-Write-Host "Download complete."
+Write-Host "Downloading Git installer..." -ForegroundColor Cyan
+Invoke-WebRequest -Uri $gitDownloadUrl -OutFile $installerPath -UseBasicParsing -Verbose
 
-# Run the installer silently
-Write-Host "Installing Git..."
-Start-Process -FilePath $installerPath -ArgumentList "/SILENT" -Wait
+# Check if the installer was downloaded
+if (Test-Path $installerPath) {
+    Write-Host "Download complete. Installing Git..." -ForegroundColor Cyan
+    # Run the installer silently
+    Start-Process -FilePath $installerPath -ArgumentList "/SILENT" -Wait
 
-# Remove the installer file
-Remove-Item -Path $installerPath -Force
-
-# Verify installation
-Write-Host "Git installation completed. Checking version..."
-git --version
+    # Remove the installer file
+    Remove-Item -Path $installerPath -Force
+    Write-Host "Git installed successfully. Checking version..." -ForegroundColor Green
+    git --version
+} else {
+    Write-Host "Download failed. Please check the URL or network connection." -ForegroundColor Red
+}
