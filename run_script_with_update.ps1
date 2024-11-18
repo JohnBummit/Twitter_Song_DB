@@ -1,6 +1,6 @@
 # Define paths to the scripts
-$pythonScriptPath = "./for_new_ppl/install_python.ps1"
-$gitScriptPath = "./for_new_ppl/install_git.ps1"
+$pythonScriptPath = "./Twitter_Song_DB/for_new_ppl/install_python.ps1"
+$gitScriptPath = "./Twitter_Song_DB/for_new_ppl/install_git.ps1"
 
 # Function to check and run a script if it exists
 function Run-ScriptIfExists {
