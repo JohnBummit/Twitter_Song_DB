@@ -3,7 +3,10 @@ $pythonScriptPath = "./for_new_ppl/install_python.ps1"
 $gitScriptPath = "./for_new_ppl/install_git.ps1"
 
 # Function to check and run a script if it exists
-function Run-ScriptIfExists($scriptPath) {
+function Run-ScriptIfExists {
+    param (
+        [string]$scriptPath
+    )
     if (Test-Path $scriptPath) {
         Write-Output "Found $scriptPath. Running the script..."
         try {
@@ -11,19 +14,19 @@ function Run-ScriptIfExists($scriptPath) {
             & $scriptPath
         } catch {
             # Handle errors during script execution
-            Write-Error "An error occurred while running `${scriptPath}: $($_.Exception.Message)`"
+            Write-Error "An error occurred while running '$scriptPath': $($_.Exception.Message)"
         }
     } else {
         # Log an error if the script does not exist
-        Write-Error "Error: `${scriptPath}` not found! Please verify the file location."
+        Write-Error "Error: '$scriptPath' not found! Please verify the file location."
     }
 }
 
 # Run the Python installation script
-Run-ScriptIfExists $pythonScriptPath
+Run-ScriptIfExists -scriptPath $pythonScriptPath
 
 # Run the Git installation script
-Run-ScriptIfExists $gitScriptPath
+Run-ScriptIfExists -scriptPath $gitScriptPath
 
 # Output completion message
 Write-Output "All scripts have been processed. Check for any errors in the output above."
