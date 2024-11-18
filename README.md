@@ -5,6 +5,10 @@ Will write this tm
 
 open powershell as admin press windows key (right click) then type 
 
+
+# run Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+
+
 # if you dont have git:
 open the downloadgit.ps1 file then press windows key and right click powershell as asministrator, then paste the code in and press enter
 
