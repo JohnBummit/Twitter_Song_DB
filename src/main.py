@@ -4,7 +4,10 @@ import json
 from datetime import datetime, timedelta
 import pandas as pd
 from datetime import datetime
+import os
 
+
+os.chdir(r"C:\Users\Matth\OneDrive\Documents\Twitter_Song_DB")
 #import list for non real niggas 
 """
 from bad artists.py import Bad_Artists
@@ -18,6 +21,10 @@ CREATE SEQUENCE IF NOT EXISTS usernames_id_sequence START 1 INCREMENT 1;
 """)
 conn.execute("""
 CREATE SEQUENCE IF NOT EXISTS songs_id_sequence START 1 INCREMENT 1;
+""")
+
+conn.execute("""
+CREATE SEQUENCE IF NOT EXISTS artists_id_sequence START 1 INCREMENT 1;
 """)
 
 create_usernames_table = """
@@ -42,6 +49,15 @@ CREATE TABLE IF NOT EXISTS songs (
 );
 """
 conn.execute(create_songs_table_query)
+
+
+ass_query = ("""create TABLE IF NOT EXISTS Bad_Rappers (
+             artists_id INTEGER DEFAULT nextval('usernames_id_sequence') PRIMARY KEY,
+             date_created DATETIME NOT NULL,
+             artist_name NVARCHAR NOT NULL,
+             username NVARCHAR NOT NULL);""")
+
+conn.execute(ass_query)
 
 # Confirm the tables were created
 print("Tables created successfully.")
@@ -88,10 +104,9 @@ def insert_username(username, is_real_nigga):
     """
     conn.execute(insert_query, [date_created, username])
 
-
 def parse_and_insert_json(json_file,Bad_Artists):
     # Load the JSON file
-    with open(json_file, "r") as file:
+    with open(json_file,"r") as file:
         data = json.load(file)
     
     # Convert JSON to a Pandas DataFrame
@@ -100,7 +115,13 @@ def parse_and_insert_json(json_file,Bad_Artists):
     # Drop the first row
     df= df.iloc[1:]
     df["Timestamp"] = df["Timestamp"].apply(format_timestamp)
-    
+    timestamp = datetime.now()
+    username_ass = df[0]["username"]
+    #Bad Rappers
+    bad_rapper(timestamp,username_ass)
+    for username in df["username"].dropna().unique():
+        timestamp = datetime.now()
+        
     
     for username in df["username"].dropna().unique():
         if not username_exists(username):
@@ -108,7 +129,8 @@ def parse_and_insert_json(json_file,Bad_Artists):
             print(f"Inserted: {username} into users db")
         else:
             print(f"Skipped: {username} (already in table)")
-    #Real nigga check        
+    #Real nigga check
+        
     for _, row in df.iterrows():
         if row["song_name"].lower().strip() in Bad_Artists:
             row["real_nigga?"] = 'N'
@@ -126,6 +148,12 @@ def format_timestamp(ts):
 def upsert_username(timestamp, username, real_nigga=None):
     # Extract the date from the Timestamp
     Timestamp = timestamp.split(" ")[0]  # Assume timestamp is in "YYYY-MM-DD HH:MM:SS" format
+
+    
+    ass = conn.execute("Select DISTINCT artist_name as Bad_Rapper from ass having count >5").df()
+    
+    
+
 
     # Check if the username already exists for the same date
     existing_query = """
@@ -202,11 +230,26 @@ def upsert_song(timestamp, username, song, artist):
         conn.execute(insert_query, [timestamp, username, song, artist])
         print(f"Inserted: {username}'s song '{song}' by {artist} for today ({today_date})")
       
-
-#Add artists you dont like
-Bad_Artists = ['russ','taylorswift']
-json_file = "music_data.json"
+def bad_rapper(timestamp,username):
+    artist_name = input("are there any rappers you hate?")
+    
+    insert_query = """
+    INSERT INTO ass (date_created, artist_name, username)
+    VALUES (?, ?, ?, );
+    """
+    bad_rapper  = input("Are there any bad rappers you want to contribute? Y or N \n")
+    if bad_rapper == "Y":
+            
+        date = datetime.now()
+        ass = input("Enter Artist Name")
+        conn.execute(insert_query, [date,ass,username])
+    
+    
+json_file = "src/music_data.json"
 
 def main():
-    parse_and_insert_json(json_file,Bad_Artists)
+   
+    parse_and_insert_json(json_file)
+
+
 
