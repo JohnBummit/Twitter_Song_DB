@@ -1,3 +1,8 @@
+#Bypass exe
+
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
+
+
 # Define the URL for the Git installer
 $gitDownloadUrl = "https://github.com/git-for-windows/git/releases/latest/download/Git-2.41.0-64-bit.exe"
 
