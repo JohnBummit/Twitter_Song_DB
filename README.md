@@ -5,7 +5,7 @@ Will write this tm
 
 open powershell as admin press windows key (right click) then type 
 
-1: if you dont have git, run: ./install_git.ps1
+1: if you dont have git, run: ./for_new_ppl/install_git.ps1
 
 2. git clone https://github.com/JohnBummit/Twitter_Song_DB.git
 
