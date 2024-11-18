@@ -1,11 +1,15 @@
 # Twitter_Song_DB
 DB project for twitter
 Will write this tm
-for new people, open powershell as admin (right click) then type 
+#for new people, 
 
-run 1. git clone https://github.com/JohnBummit/Twitter_Song_DB.git
+open powershell as admin (right click) then type 
 
-run 2. ./Twitter_Song_DB/run_script_with_update.ps1
+1: if you dont have git, run: ./install_git.ps1
+
+2. git clone https://github.com/JohnBummit/Twitter_Song_DB.git
+
+3. ./Twitter_Song_DB/run_script_with_update.ps1
 
 
 # This project is supposed to be stupid. dont be sccared to add, also tell me where to improve, im still new and dumb
