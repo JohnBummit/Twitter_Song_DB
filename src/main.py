@@ -7,7 +7,7 @@ from datetime import datetime
 import os
 
 
-os.chdir(r".\Twitter_Song_DB")
+
 #import list for non real niggas 
 """
 from bad artists.py import Bad_Artists
