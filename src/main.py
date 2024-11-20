@@ -259,4 +259,3 @@ def main():
     
     parse_and_insert_json(json_file)
 
-
